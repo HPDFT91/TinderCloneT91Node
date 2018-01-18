@@ -1,0 +1,14 @@
+- alias: hasura
+  config:
+    configmap: controller-conf
+    namespace: amontillado27-hasura
+  data: null
+  kubeContext: amontillado27
+  name: amontillado27
+- alias: Hasura
+  config:
+    configmap: controller-conf
+    namespace: bleed71-hasura
+  data: null
+  kubeContext: bleed71
+  name: bleed71
