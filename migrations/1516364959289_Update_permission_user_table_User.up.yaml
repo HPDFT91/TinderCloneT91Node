@@ -1,0 +1,11 @@
+- args:
+    permission:
+      columns:
+      - Age
+      - City
+      - Gender
+      - User_name
+      filter: {}
+    role: user
+    table: User
+  type: create_update_permission

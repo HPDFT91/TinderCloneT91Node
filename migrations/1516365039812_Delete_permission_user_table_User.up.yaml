@@ -1,0 +1,4 @@
+- args:
+    role: user
+    table: User
+  type: drop_delete_permission

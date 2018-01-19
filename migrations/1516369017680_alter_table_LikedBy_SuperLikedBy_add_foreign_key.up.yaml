@@ -1,0 +1,4 @@
+- args:
+    sql: ALTER TABLE "LikedBy_SuperLikedBy" ADD FOREIGN KEY ("User_id") REFERENCES
+      "User" ("User_id")
+  type: run_sql
