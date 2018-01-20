@@ -1,0 +1,24 @@
+<html>
+  <head>
+    <title>Simple login</title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js">  </script>
+    <script>
+      $(document).ready(function(){
+        var user,pass;
+        $("#submit").click(function(){
+          user=$("#user").val();
+          pass=$("#password").val();
+          $.post("http://127.0.0.1:8080/login",{user: user,password: pass}, function(data){
+            
+          });
+        });
+      });
+    </script>
+  </head>
+  <body >
+    <h1>Fill in your details !</h1>
+    YOUR USERNAME? :<input type="TEXT" id="user" size="40"><br>
+    PASSWORD? :<input type="password" id="password" size="40"><br>
+    <input type="button" id="submit" value="Submit">
+  </body>
+</html>
