@@ -15,13 +15,13 @@
 # defaultRoles: ["admin"]
 defaultProviders:
   username:
-    enabled: "true"
+    enabled: "false"
     defaultRoles: []
   email:
-    enabled: "true"
+    enabled: "false"
     defaultRoles: []
   mobile:
-    enabled: "true"
+    enabled: "false"
     defaultRoles: []
   mobile-password:
     enabled: "false"
@@ -30,7 +30,7 @@ defaultProviders:
     enabled: "false"
     defaultRoles: []
   facebook:
-    enabled: "false"
+    enabled: "true"
     defaultRoles: []
   github:
     enabled: "false"
