@@ -50,22 +50,22 @@ session:
   sessionAge: "1814400"
 
 # Configuration related to the email provider
-#email:
+email:
   # email address of the sender for verification emails
-  #verifyEmailFrom: getstarteduser@hasura.io
+  verifyEmailFrom: getstarteduser@hasura.io
   # Name of the sender for verification emails
-  # verifEmailFromName: admin
+  verifEmailFromName: admin
   # Subject for verification emails
-  #verifyEmailSubject: MyAwesomeApp - Verify your account
+  verifyEmailSubject: MyAwesomeApp - Verify your account
   # Template for verification emails. HTML can be used in the template. The
   # template is a Jinja template. Leave the "{{token}}" as it is. It will be
   # used by the auth service to inject the actual token when sending the email.
-  # verifyTemplate: |
-   # Hi, Please click on <br/>
-   #https://auth.{{ cluster.name }}.hasura-app.io/v1/providers/email/verify-email?token={{ "{{token}}" }}
-   #to verify your email.
+  verifyTemplate: |
+    Hi, Please click on <br/>
+    https://auth.{{ cluster.name }}.hasura-app.io/v1/providers/email/verify-email?token={{ "{{token}}" }}
+    to verify your email.
   # Email verification token expiry time in days
-  #verifyTokenExpires: "7"
+  verifyTokenExpires: "7"
 
   # email address of the sender for forgot password emails
   forgotPassEmailFrom: getstarteduser@hasura.io
@@ -84,29 +84,29 @@ session:
   resetTokenExpires: "7"
 
 # Configuration for the mobile provider
-#mobile:
+mobile:
   # Template for the SMS that is sent. This is a Jinja template. Leave the
   # "{{otp}}" as it is. It will be used by the auth service to inject the
   # actual token.
-  #smsTemplate: |
-    #Verify your acccount with MyAwesomeApp! Your OTP is {{ "{{otp}}" }}.
+  smsTemplate: |
+    Verify your acccount with MyAwesomeApp! Your OTP is {{ "{{otp}}" }}.
   # OTP expiry time in minutes
-  #otpExpiryTime: "15"
+  otpExpiryTime: "15"
 
 # Configuration for the mobile-password provider
-#mobilePassword:
+mobilePassword:
   # Template for the SMS that is sent. This is a Jinja template. Leave the
   # "{{otp}}" as it is. It will be used by the auth service to inject the
   # actual token.
-  #smsTemplate: |
-    #Verify your acccount with MyAwesomeApp! Your OTP is {{ "{{otp}}" }}.
+  smsTemplate: |
+    Verify your acccount with MyAwesomeApp! Your OTP is {{ "{{otp}}" }}.
   # OTP expiry time in minutes
- # otpExpiryTime: "15"
+  otpExpiryTime: "15"
 
 # Configuration for password
-#password:
+password:
   # minimum length of the password allowed.
-  #minLength: "8"
+  minLength: "8"
 
 # Below fields are all optional
 #
@@ -118,9 +118,9 @@ session:
 # Configuration for facebook provider
 facebook:
 #  # your facebook app client id
-  clientId: 1578440922251720
+  clientId: "1578440922251720"
 #  # your facebook app client secret
-  clientSecret: d8b32352842042db43d3a4c2193da6ec
+  clientSecret: "d8b32352842042db43d3a4c2193da6ec"
 #    secretKeyRef:
 #      key: auth.facebook.client.secret
 #      name: hasura-secrets
