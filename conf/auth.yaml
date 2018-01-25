@@ -54,16 +54,16 @@ session:
   # email address of the sender for verification emails
   #verifyEmailFrom: getstarteduser@hasura.io
   # Name of the sender for verification emails
- # verifEmailFromName: admin
+  # verifEmailFromName: admin
   # Subject for verification emails
   #verifyEmailSubject: MyAwesomeApp - Verify your account
   # Template for verification emails. HTML can be used in the template. The
   # template is a Jinja template. Leave the "{{token}}" as it is. It will be
   # used by the auth service to inject the actual token when sending the email.
- # verifyTemplate: |
+  # verifyTemplate: |
    # Hi, Please click on <br/>
-   # https://auth.{{ cluster.name }}.hasura-app.io/v1/providers/email/verify-email?token={{ "{{token}}" }}
-    #to verify your email.
+   #https://auth.{{ cluster.name }}.hasura-app.io/v1/providers/email/verify-email?token={{ "{{token}}" }}
+   #to verify your email.
   # Email verification token expiry time in days
   #verifyTokenExpires: "7"
 
