@@ -15,7 +15,7 @@
 # defaultRoles: ["admin"]
 defaultProviders:
   username:
-    enabled: "false"
+    enabled: "true"
     defaultRoles: []
   email:
     enabled: "false"
@@ -30,7 +30,7 @@ defaultProviders:
     enabled: "false"
     defaultRoles: []
   facebook:
-    enabled: "true"
+    enabled: "false"
     defaultRoles: []
   github:
     enabled: "false"
