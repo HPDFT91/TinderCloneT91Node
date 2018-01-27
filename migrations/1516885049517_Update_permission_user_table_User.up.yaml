@@ -1,0 +1,14 @@
+- args:
+    role: user
+    table: User
+  type: drop_update_permission
+- args:
+    permission:
+      columns:
+      - City
+      - Gender
+      - User_name
+      filter: {}
+    role: user
+    table: User
+  type: create_update_permission
