@@ -1,0 +1,16 @@
+- args:
+    role: user
+    table: User
+  type: drop_select_permission
+- args:
+    permission:
+      columns:
+      - City
+      - Gender
+      - Password
+      - User_id
+      - User_name
+      filter: {}
+    role: user
+    table: User
+  type: create_select_permission
