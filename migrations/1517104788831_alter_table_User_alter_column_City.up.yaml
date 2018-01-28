@@ -1,0 +1,9 @@
+- args:
+    sql: ALTER TABLE "User" ALTER COLUMN "City" TYPE text;
+  type: run_sql
+- args:
+    sql: ALTER TABLE "User" ALTER COLUMN "City" DROP DEFAULT;
+  type: run_sql
+- args:
+    sql: ALTER TABLE "User" ALTER COLUMN "City" DROP NOT NULL;
+  type: run_sql
