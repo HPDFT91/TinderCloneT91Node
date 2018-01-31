@@ -31,7 +31,7 @@ app.get('/APIEP_Likes', function(req, res){
  var resp={
     "message": "API call successful"
   }
-  res.send(resp);
+  //res.send(resp);
   /* else {
     res.send("One or more inputs is invalid (Should be numbers)");
   }*/
@@ -83,6 +83,7 @@ fetchAction(url, requestOptions)
   console.log(result);
 })
 .catch(function(error) {
+  res.send(error);
   console.log('Request Failed at server 1' + error);
 });
 }
@@ -161,6 +162,7 @@ fetchAction(url, requestOptions)
   console.log(result);
 })
 .catch(function(error) {
+  res.send(error);
   console.log('Request Failed at server at server 3' + error);
 });
 
@@ -197,6 +199,7 @@ fetchAction(url, requestOptions)
   console.log(result);
 })
 .catch(function(error) {
+  res.send(error);
   console.log('Request Failed at server 4' + error);
 });
 
@@ -212,6 +215,7 @@ var requestOptions = {
         "Authorization": "Bearer 1ad19463a246363739193dd5750da22a5aefe4e1a3350862"
     }
 };
+
 
 var body = {
     "type": "insert",
@@ -236,6 +240,7 @@ fetchAction(url, requestOptions)
   console.log(result);
 })
 .catch(function(error) {
+  res.send(error);
   console.log('Request Failed at server 5' + error);
 });
   
