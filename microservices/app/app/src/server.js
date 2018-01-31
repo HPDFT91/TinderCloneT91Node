@@ -18,18 +18,18 @@ var url_logout = "https://auth.bleed71.hasura-app.io/v1/user/logout";
 var url = "https://data.bleed71.hasura-app.io/v1/query";
 var url_getinfo = "https://auth.bleed71.hasura-app.io/v1/user/info";
 
-app.get('/APIEP_Likes', function(req, res){
+app.get('/APIEP_Likes/:like_user_id/:likeby_user_id', function(req, res){
   //var User_id = parseInt(req.body.like_user_id);
   //var likeby_user_id = parseInt(req.body.likeby_user_id);
-  var User_id = req.body.like_user_id;
-  var likeby_user_id = req.body.likeby_user_id;
+  var User_id = req.params.like_user_id;
+  var likeby_user_id = req.params.likeby_user_id;
   console.log(req.body);
   console.log(User_id);
   console.log(likeby_user_id);
   console.log("Inside server");
   /*if(isNumber(User_id) && isNumber(likeby_user_id))*/{
     //UpdateLikesTable(User_id, likeby_user_id, res);
-    if(Match_is_present(User_id,likeby_user_id))
+    //if(Match_is_present(User_id,likeby_user_id))
       //insertmatch(User_id,likeby_user_id);
     console.log("insertMatch Called");
     
