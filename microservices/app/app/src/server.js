@@ -24,8 +24,8 @@ app.get('/APIEP_Likes', function(req, res){
   console.log("Inside server");
   /*if(isNumber(User_id) && isNumber(likeby_user_id))*/{
     UpdateLikesTable(User_id, likeby_user_id, res);
-    if(Match_is_present(User_id,likedby_user_id))
-      insertmatch(User_id,likedby_user_id);
+    if(Match_is_present(User_id,likeby_user_id))
+      insertmatch(User_id,likeby_user_id);
     
   }
  var resp={
