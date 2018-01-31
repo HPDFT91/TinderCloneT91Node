@@ -1,0 +1,8 @@
+- args:
+    sql: CREATE TABLE "Match"("matching_user_id1" integer , "matching_username1" text
+      , "matching_user_id2" integer , "matching_username2" text , "pk_matchkey" serial
+      NOT NULL, PRIMARY KEY ("pk_matchkey") )
+  type: run_sql
+- args:
+    name: Match
+  type: add_existing_table_or_view

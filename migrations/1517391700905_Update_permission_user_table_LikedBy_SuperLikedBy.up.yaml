@@ -1,0 +1,6 @@
+- args:
+    permission:
+      check: {}
+    role: user
+    table: LikedBy_SuperLikedBy
+  type: create_insert_permission
