@@ -27,7 +27,12 @@ app.get('/APIEP_Likes', function(req, res){
     if(Match_is_present(User_id,likedby_user_id))
       insertmatch(User_id,likedby_user_id);
     
-  }/* else {
+  }
+ var resp={
+    "message": "API call successful"
+  }
+  res.send(resp);
+  /* else {
     res.send("One or more inputs is invalid (Should be numbers)");
   }*/
 });
@@ -233,7 +238,9 @@ fetchAction(url, requestOptions)
 .catch(function(error) {
   console.log('Request Failed at server 5' + error);
 });
-  res.send("API Call successfull");
+  
+ 
+
 }
 
 app.get('/', function (req, res) {
