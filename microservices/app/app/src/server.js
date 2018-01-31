@@ -15,7 +15,7 @@ var server = require('http').Server(app);
 var url_signup = "https://auth.bleed71.hasura-app.io/v1/signup";
 var url_login = "https://auth.bleed71.hasura-app.io/v1/login";
 var url_logout = "https://auth.bleed71.hasura-app.io/v1/user/logout";
-var url_query = "https://data.bleed71.hasura-app.io/v1/query";
+var url = "https://data.bleed71.hasura-app.io/v1/query";
 var url_getinfo = "https://auth.bleed71.hasura-app.io/v1/user/info";
 
 app.get('/APIEP_Likes', function(req, res){
@@ -199,7 +199,7 @@ fetchAction(url, requestOptions)
 
 
 function UpdateLikesTable(user_id, likedBy_user_id, res){
-  console.log(url_query);
+  console.log(url);
 var requestOptions = {
     "method": "POST",
     "headers": {
