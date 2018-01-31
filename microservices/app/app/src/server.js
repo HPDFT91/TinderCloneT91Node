@@ -21,7 +21,7 @@ var url_getinfo = "https://auth.bleed71.hasura-app.io/v1/user/info";
 app.get('/APIEP_Likes', function(req, res){
   var User_id = req.body.like_user_id;
   var likeby_user_id = req.body.likeby_user_id;
-
+  console.log("Inside server");
   if(isNumber(User_id) && isNumber(likeby_user_id)){
     UpdateLikesTable(User_id, likeby_user_id, res);
     if(Match_is_present(User_id,likedby_user_id))
@@ -78,7 +78,7 @@ fetchAction(url, requestOptions)
   console.log(result);
 })
 .catch(function(error) {
-  console.log('Request Failed:' + error);
+  console.log('Request Failed at server 1' + error);
 });
 }
 
@@ -119,7 +119,7 @@ fetchAction(url, requestOptions)
   console.log(result);
 })
 .catch(function(error) {
-  console.log('Request Failed:' + error);
+  console.log('Request Failed at server 2' + error);
 });
 
 var requestOptions = {
@@ -156,7 +156,7 @@ fetchAction(url, requestOptions)
   console.log(result);
 })
 .catch(function(error) {
-  console.log('Request Failed:' + error);
+  console.log('Request Failed at server at server 3' + error);
 });
 
 var requestOptions = {
@@ -192,7 +192,7 @@ fetchAction(url, requestOptions)
   console.log(result);
 })
 .catch(function(error) {
-  console.log('Request Failed:' + error);
+  console.log('Request Failed at server 4' + error);
 });
 
 }
@@ -231,7 +231,7 @@ fetchAction(url, requestOptions)
   console.log(result);
 })
 .catch(function(error) {
-  console.log('Request Failed:' + error);
+  console.log('Request Failed at server 5' + error);
 });
   res.send("API Call successfull");
 }
