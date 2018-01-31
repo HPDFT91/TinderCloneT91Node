@@ -23,6 +23,7 @@ app.get('/APIEP_Likes', function(req, res){
   //var likeby_user_id = parseInt(req.body.likeby_user_id);
   var User_id = req.body.like_user_id;
   var likeby_user_id = req.body.likeby_user_id;
+  console.log(req);
   console.log(User_id);
   console.log(likeby_user_id);
   console.log("Inside server");
