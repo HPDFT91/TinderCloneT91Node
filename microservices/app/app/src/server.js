@@ -4,7 +4,7 @@ var path = require('path');
 var fetchAction =  require('node-fetch');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
-var isNumber = require('is-number');
+//var isNumber = require('is-number');
 var app = express();
 var router = express.Router();
 app.use(cookieParser());
@@ -22,7 +22,7 @@ app.get('/APIEP_Likes', function(req, res){
   var User_id = req.body.like_user_id;
   var likeby_user_id = req.body.likeby_user_id;
   console.log("Inside server");
-  if(isNumber(User_id) && isNumber(likeby_user_id)){
+  /*if(isNumber(User_id) && isNumber(likeby_user_id))*/{
     UpdateLikesTable(User_id, likeby_user_id, res);
     if(Match_is_present(User_id,likedby_user_id))
       insertmatch(User_id,likedby_user_id);
