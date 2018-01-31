@@ -19,8 +19,8 @@ var url = "https://data.bleed71.hasura-app.io/v1/query";
 var url_getinfo = "https://auth.bleed71.hasura-app.io/v1/user/info";
 
 app.get('/APIEP_Likes', function(req, res){
-  var User_id = req.body.like_user_id;
-  var likeby_user_id = req.body.likeby_user_id;
+  var User_id = parseInt(req.body.like_user_id);
+  var likeby_user_id = parseInt(req.body.likeby_user_id);
   console.log("Inside server");
   /*if(isNumber(User_id) && isNumber(likeby_user_id))*/{
     UpdateLikesTable(User_id, likeby_user_id, res);
