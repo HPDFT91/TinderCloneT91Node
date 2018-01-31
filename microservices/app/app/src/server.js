@@ -27,9 +27,9 @@ app.get('/APIEP_Likes', function(req, res){
     if(Match_is_present(User_id,likedby_user_id))
       insertmatch(User_id,likedby_user_id);
     
-  } else {
+  }/* else {
     res.send("One or more inputs is invalid (Should be numbers)");
-  }
+  }*/
 });
 //your routes here
 function Match_is_present(User_id,likedBy_user_id){
