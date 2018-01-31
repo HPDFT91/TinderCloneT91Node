@@ -1,0 +1,9 @@
+- args:
+    sql: ALTER TABLE "LikedBy_SuperLikedBy" ALTER COLUMN "User_id" TYPE integer;
+  type: run_sql
+- args:
+    sql: ALTER TABLE "LikedBy_SuperLikedBy" ALTER COLUMN "User_id" DROP DEFAULT;
+  type: run_sql
+- args:
+    sql: ALTER TABLE "LikedBy_SuperLikedBy" ALTER COLUMN "User_id" DROP NOT NULL;
+  type: run_sql
