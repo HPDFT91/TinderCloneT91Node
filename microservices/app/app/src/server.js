@@ -4,7 +4,7 @@ var path = require('path');
 var fetchAction =  require('node-fetch');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
-//var isNumber = require('is-number');
+
 var app = express();
 var router = express.Router();
 app.use(cookieParser());
@@ -18,7 +18,48 @@ var url_logout = "https://auth.bleed71.hasura-app.io/v1/user/logout";
 var url = "https://data.bleed71.hasura-app.io/v1/query";
 var url_getinfo = "https://auth.bleed71.hasura-app.io/v1/user/info";
 
+
+
+
+
+
+/*function testing(){
+  var like_user_id = 119;
+  var likeby_user_id = 250;
+  var url_new = "http://localhost:8080/APIEP_Likes/"+like_user_id+"/"+likeby_user_id;
+  console.log("app.js calling ep");
+  fetchAction(url_new)
+  .then(function(response) {
+      return response.json();
+  })
+  .then(function(result) {
+      console.log(result);
+      /*console.log("result:"+result.username);
+      console.log(JSON.stringify(result.hasura_id));
+          
+          res_username= JSON.stringify(result.username);
+          res_username1= res_username.substring(1,res_username.length-1);
+          res_password1= JSON.stringify(body.data.password);
+          res_password= res_password1.substring(1,res_password1.length-1);
+         
+          res_id= JSON.stringify(result.hasura_id);
+      })
+   .catch(function(error) {
+
+              console.log('Request Failed locally  6' + error);
+          });
+}
+
+
+app.get('/testing', function(req, res){
+  testing();
+  res.send({"message":"done"});
+
+});*/
+
 app.get('/APIEP_Likes/:like_user_id/:likeby_user_id', function(req, res){
+  
+  
   //var User_id = parseInt(req.body.like_user_id);
   //var likeby_user_id = parseInt(req.body.likeby_user_id);
   var User_id = req.params.like_user_id;
@@ -28,21 +69,23 @@ app.get('/APIEP_Likes/:like_user_id/:likeby_user_id', function(req, res){
   console.log("Inside server");
   /*if(isNumber(User_id) && isNumber(likeby_user_id))*/{
     UpdateLikesTable(User_id, likeby_user_id, res);
-    if(Match_is_present(User_id,likeby_user_id))
-      insertmatch(User_id,likeby_user_id);
-    console.log("insertMatch Called");
+  Match_is_present(User_id,likeby_user_id)
+     
     
   }
  var resp={
     "message": "API call successful"
   }
-  //res.send(resp);
+
+  
+  res.send(resp);
   /* else {
     res.send("One or more inputs is invalid (Should be numbers)");
   }*/
 });
 //your routes here
 function Match_is_present(User_id,likedBy_user_id){
+  console.log("function match present called");
   var requestOptions = {
     "method": "POST",
     "headers": {
@@ -82,18 +125,22 @@ fetchAction(url, requestOptions)
   return response.json();
 })
 .then(function(result) {
-  if (result!='[]')
-    return true;
-  else return false;
-  console.log(result);
+  
+  console.log(result.length);
+  if(result.length!=0){
+    insertmatch(User_id,likedBy_user_id);
+   // console.log("true");
+  }
+
+  
 })
 .catch(function(error) {
-  res.send(error);
+  
   console.log('Request Failed at server 1' + error);
 });
 }
 
-function insertmatch(user_id,likedBy_user_id){
+function insertmatch(User_id,likedBy_user_id){
 var matchname1="";
 var matchname2="";
 var requestOptions = {
@@ -113,7 +160,7 @@ var body = {
         ],
         "where": {
             "User_id": {
-                "$eq": user_id
+                "$eq": User_id
             }
         }
     }
@@ -122,16 +169,15 @@ var body = {
 requestOptions.body = JSON.stringify(body);
 
 fetchAction(url, requestOptions)
+
 .then(function(response) {
   return response.json();
 })
+
 .then(function(result) {
-  matchname1=result.User_name;
-  console.log(result);
-})
-.catch(function(error) {
-  console.log('Request Failed at server 2' + error);
-});
+   var matchname=JSON.stringify(result[0].User_name);
+   matchname1=matchname.substring(1,matchname.length-1);
+  console.log("match1:"+matchname1);
 
 var requestOptions = {
     "method": "POST",
@@ -159,17 +205,14 @@ var body = {
 requestOptions.body = JSON.stringify(body);
 
 fetchAction(url, requestOptions)
+
 .then(function(response) {
   return response.json();
 })
 .then(function(result) {
-  matchname2=result.User_name;
-  console.log(result);
-})
-.catch(function(error) {
-  res.send(error);
-  console.log('Request Failed at server at server 3' + error);
-});
+  var match=JSON.stringify(result[0].User_name);
+  matchname2=match.substring(1,match.length-1);
+  console.log("match2:"+matchname2);
 
 var requestOptions = {
     "method": "POST",
@@ -178,7 +221,7 @@ var requestOptions = {
         "Authorization": "Bearer 1ad19463a246363739193dd5750da22a5aefe4e1a3350862"
     }
 };
-
+console.log("names:"+matchname1+matchname2);
 var body = {
     "type": "insert",
     "args": {
@@ -197,16 +240,34 @@ var body = {
 requestOptions.body = JSON.stringify(body);
 
 fetchAction(url, requestOptions)
+
 .then(function(response) {
   return response.json();
 })
 .then(function(result) {
-  console.log(result);
+  console.log("match inserted:"+JSON.stringify(result.affected_rows));
 })
 .catch(function(error) {
-  res.send(error);
   console.log('Request Failed at server 4' + error);
 });
+
+})
+.catch(function(error) {
+  console.log('Request Failed at server 2' + error);
+});
+
+})
+
+.catch(function(error) {
+ 
+  console.log('Request Failed at server at server 3' + error);
+});
+
+
+
+
+
+
 
 }
 
