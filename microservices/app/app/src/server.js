@@ -57,6 +57,18 @@ app.get('/testing', function(req, res){
 
 });*/
 
+app.post('/APIEP_Signup_Username', function(req, res){
+  var username = req.body.data.username;
+  var password = req.body.data.password;
+  if (!username.trim() || !password.trim()) {
+    res.send("One or more fields is empty!");
+  } else {
+    Signup_Username(username, password, res);
+  }
+});
+
+
+
 app.get('/APIEP_Likes/:like_user_id/:likeby_user_id', function(req, res){
   
   var User_id = req.params.like_user_id;
@@ -78,7 +90,124 @@ app.get('/APIEP_Likes/:like_user_id/:likeby_user_id', function(req, res){
   res.send(resp);
  
 });
-//your routes here
+
+app.post('/APIEP_Login_Username', function(req, res){
+  var username = req.body.data.username;
+  var password = req.body.data.password;
+  if (!username.trim() || !password.trim()) {
+    res.send("One or more fields is empty!");
+  } else {
+    Login_Username(username, password, res);
+  }
+});
+
+
+app.post('/APIEP_Logout', function(req, res){
+  var auth = (req.body.auth_key);
+  console.log(auth);
+  if (!auth.trim()) {
+    res.send("A valid <b>auth_token</b> must be provided!");
+  } else {
+    Logout(auth, res);
+  }
+});
+
+
+//Functions:
+
+
+
+
+
+
+
+
+function Signup_Username(username, password, res){
+  var requestOptions = {
+    "method": "POST",
+    "headers": {
+        "Content-Type": "application/json"
+    }
+  };
+
+  var body = {
+      "provider": "username",
+      "data": {
+          "username": username,
+          "password": password
+      }
+  };
+
+  requestOptions.body = JSON.stringify(body);
+
+  fetchAction(url_signup, requestOptions,res)
+  .then(function(response) {
+    return response.json();
+  })
+  .then(function(result) {
+    console.log(JSON.stringify(result));
+    res.send(result);
+  })
+  .catch(function(error) {
+    console.log('Request Failed:' + error);
+    res.send('Request Failed:' + error);
+  });
+}
+
+function Login_Username(username, password, res){
+  var requestOptions = {
+    "method": "POST",
+    "headers": {
+        "Content-Type": "application/json"
+    }
+  };
+
+  var body = {
+      "provider": "username",
+      "data": {
+          "username": username,
+          "password": password
+      }
+  };
+
+  requestOptions.body = JSON.stringify(body);
+
+  fetchAction(url_login, requestOptions)
+  .then(function(response) {
+    return response.json();
+  })
+  .then(function(result) {
+    console.log(JSON.stringify(result));
+    res.send(result);
+  })
+  .catch(function(error) {
+    console.log('Request Failed:' + error);
+  });
+}
+
+function Logout(auth, res){
+  var requestOptions = {
+    "method": "POST",
+    "headers": {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer "+auth
+    }
+  };
+
+  fetchAction(url_logout, requestOptions)
+  .then(function(response) {
+    return response.json();
+  })
+  .then(function(result) {
+    console.log(result);
+    res.send(result);
+  })
+  .catch(function(error) {
+    console.log('Request Failed:' + error);
+  });
+}
+
+
 function Match_is_present(User_id,likedBy_user_id){
   console.log("function match present called");
   var requestOptions = {
