@@ -289,12 +289,13 @@ fetchAction(url, requestOptions)
   return response.json();
 })
 .then(function(result) {
-  
   console.log(result.length);
   if(result.length!=0){
     insertmatch(User_id,likedBy_user_id,auth,res);
-  
   }
+  else 
+   { res.send(result);
+    }
   console.log(result);
 })
 .catch(function(error) {
@@ -333,7 +334,6 @@ var body = {
 requestOptions.body = JSON.stringify(body);
 
 fetchAction(url, requestOptions)
-
 .then(function(response) {
   return response.json();
 })
@@ -411,21 +411,17 @@ fetchAction(url, requestOptions)
 .then(function(result) {
   res.send(result);
   console.log("match inserted:"+JSON.stringify(result.affected_rows));
-})
-.catch(function(error) {
+}).catch(function(error) {
   res.send(error);
   console.log('Request Failed at server 4' + error);
 });
 
-})
-.catch(function(error) {
+}).catch(function(error) {
   res.send(error);
   console.log('Request Failed at server 2' + error);
 });
 
-})
-
-.catch(function(error) {
+}).catch(function(error) {
  res.send(error);
   console.log('Request Failed at server at server 3' + error);
 });
