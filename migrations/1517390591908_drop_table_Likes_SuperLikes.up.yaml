@@ -1,0 +1,3 @@
+- args:
+    sql: DROP TABLE "Likes_SuperLikes"
+  type: run_sql
