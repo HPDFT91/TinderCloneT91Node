@@ -59,15 +59,12 @@ app.get('/testing', function(req, res){
 
 app.get('/APIEP_Likes/:like_user_id/:likeby_user_id', function(req, res){
   
-  
-  //var User_id = parseInt(req.body.like_user_id);
-  //var likeby_user_id = parseInt(req.body.likeby_user_id);
   var User_id = req.params.like_user_id;
   var likeby_user_id = req.params.likeby_user_id;
   console.log(User_id);
   console.log(likeby_user_id);
   console.log("Inside server");
-  /*if(isNumber(User_id) && isNumber(likeby_user_id))*/{
+  {
     UpdateLikesTable(User_id, likeby_user_id, res);
   Match_is_present(User_id,likeby_user_id)
      
@@ -79,9 +76,7 @@ app.get('/APIEP_Likes/:like_user_id/:likeby_user_id', function(req, res){
 
   
   res.send(resp);
-  /* else {
-    res.send("One or more inputs is invalid (Should be numbers)");
-  }*/
+ 
 });
 //your routes here
 function Match_is_present(User_id,likedBy_user_id){
@@ -129,7 +124,7 @@ fetchAction(url, requestOptions)
   console.log(result.length);
   if(result.length!=0){
     insertmatch(User_id,likedBy_user_id);
-   // console.log("true");
+  
   }
 
   
@@ -262,11 +257,6 @@ fetchAction(url, requestOptions)
  
   console.log('Request Failed at server at server 3' + error);
 });
-
-
-
-
-
 
 
 }
