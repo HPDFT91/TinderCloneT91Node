@@ -83,7 +83,7 @@ app.get('/APIEP_Likes/:like_user_id/:likeby_user_id/:auth_key', function(req, re
     
   }
   else{
-    res.send("Error in likes");
+    res.send({"message":"Error in likes"});
   }
   
  
