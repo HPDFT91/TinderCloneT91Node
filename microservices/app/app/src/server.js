@@ -69,25 +69,23 @@ app.post('/APIEP_Signup_Username', function(req, res){
 
 
 
-app.get('/APIEP_Likes/:like_user_id/:likeby_user_id', function(req, res){
-  
+app.get('/APIEP_Likes/:like_user_id/:likeby_user_id/:auth_key', function(req, res){
+  var auth=req.params.auth_key;
   var User_id = req.params.like_user_id;
   var likeby_user_id = req.params.likeby_user_id;
   console.log(User_id);
   console.log(likeby_user_id);
   console.log("Inside server");
-  {
-    UpdateLikesTable(User_id, likeby_user_id, res);
-  Match_is_present(User_id,likeby_user_id)
+  if((User_id) && (likeby_user_id)){
+    UpdateLikesTable(User_id, likeby_user_id,auth, res);
+  Match_is_present(User_id,likeby_user_id,auth)
      
     
   }
- var resp={
-    "message": "API call successful"
+  else{
+    res.send("Error in likes");
   }
-
   
-  res.send(resp);
  
 });
 
@@ -208,14 +206,14 @@ function Logout(auth, res){
 }
 
 
-function Match_is_present(User_id,likedBy_user_id){
+function Match_is_present(User_id,likedBy_user_id,auth){
   console.log("function match present called");
   var requestOptions = {
     "method": "POST",
     "headers": {
         "Content-Type": "application/json",
-        "Authorization": "Bearer 1ad19463a246363739193dd5750da22a5aefe4e1a3350862"
-    }
+        "Authorization": "Bearer "+auth
+      }
 };
 
 var body = {
@@ -252,7 +250,7 @@ fetchAction(url, requestOptions)
   
   console.log(result.length);
   if(result.length!=0){
-    insertmatch(User_id,likedBy_user_id);
+    insertmatch(User_id,likedBy_user_id,auth);
   
   }
 
@@ -264,14 +262,14 @@ fetchAction(url, requestOptions)
 });
 }
 
-function insertmatch(User_id,likedBy_user_id){
+function insertmatch(User_id,likedBy_user_id,auth){
 var matchname1="";
 var matchname2="";
 var requestOptions = {
     "method": "POST",
     "headers": {
         "Content-Type": "application/json",
-        "Authorization": "Bearer 1ad19463a246363739193dd5750da22a5aefe4e1a3350862"
+        "Authorization": "Bearer "+auth
     }
 };
 
@@ -307,7 +305,7 @@ var requestOptions = {
     "method": "POST",
     "headers": {
         "Content-Type": "application/json",
-        "Authorization": "Bearer 1ad19463a246363739193dd5750da22a5aefe4e1a3350862"
+        "Authorization": "Bearer "+auth
     }
 };
 
@@ -342,7 +340,7 @@ var requestOptions = {
     "method": "POST",
     "headers": {
         "Content-Type": "application/json",
-        "Authorization": "Bearer 1ad19463a246363739193dd5750da22a5aefe4e1a3350862"
+        "Authorization": "Bearer "+auth
     }
 };
 console.log("names:"+matchname1+matchname2);
@@ -391,13 +389,13 @@ fetchAction(url, requestOptions)
 }
 
 
-function UpdateLikesTable(user_id, likedBy_user_id, res){
+function UpdateLikesTable(user_id, likedBy_user_id, auth,res){
   console.log(url);
 var requestOptions = {
     "method": "POST",
     "headers": {
         "Content-Type": "application/json",
-        "Authorization": "Bearer 1ad19463a246363739193dd5750da22a5aefe4e1a3350862"
+        "Authorization": "Bearer "+auth
     }
 };
 
