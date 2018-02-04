@@ -19,6 +19,48 @@ var url = "https://data.bleed71.hasura-app.io/v1/query";
 var url_getinfo = "https://auth.bleed71.hasura-app.io/v1/user/info";
 
 
+function UpdateLikesTable(user_id, likedBy_user_id,auth,res){
+  console.log(url);
+var requestOptions = {
+    "method": "POST",
+    "headers": {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer "+auth
+    }
+};
+
+
+var body = {
+    "type": "insert",
+    "args": {
+        "table": "LikedBy_SuperLikedBy",
+        "objects": [
+            {
+                "User_id": user_id,
+                "LikedBy_User_id": likedBy_user_id
+            }
+        ]
+    }
+};
+
+requestOptions.body = JSON.stringify(body);
+
+fetchAction(url, requestOptions)
+.then(function(response) {
+  return response.json();
+})
+.then(function(result) {
+  console.log(result);
+   Match_is_present(user_id,likedBy_user_id,auth,res);
+})
+.catch(function(error) {
+  res.send(error);
+  console.log('Request Failed at server 5' + error);
+});
+  
+ 
+
+}
 
 
 
@@ -77,9 +119,7 @@ app.get('/APIEP_Likes/:like_user_id/:likeby_user_id/:auth_key', function(req, re
   console.log(likeby_user_id);
   console.log("Inside server");
   if((User_id) && (likeby_user_id)){
-    UpdateLikesTable(User_id, likeby_user_id,auth, res);
-  Match_is_present(User_id,likeby_user_id,auth)
-     res.send({"message":"done"});
+      UpdateLikesTable(User_id, likeby_user_id,auth, res);
     
   }
   else{
@@ -179,6 +219,7 @@ function Login_Username(username, password, res){
     res.send(result);
   })
   .catch(function(error) {
+    res.send(error);
     console.log('Request Failed:' + error);
   });
 }
@@ -201,12 +242,13 @@ function Logout(auth, res){
     res.send(result);
   })
   .catch(function(error) {
+    res.send(error);
     console.log('Request Failed:' + error);
   });
 }
 
 
-function Match_is_present(User_id,likedBy_user_id,auth){
+function Match_is_present(User_id,likedBy_user_id,auth,res){
   console.log("function match present called");
   var requestOptions = {
     "method": "POST",
@@ -250,19 +292,19 @@ fetchAction(url, requestOptions)
   
   console.log(result.length);
   if(result.length!=0){
-    insertmatch(User_id,likedBy_user_id,auth);
+    insertmatch(User_id,likedBy_user_id,auth,res);
   
   }
-
-  
+  console.log(result);
 })
 .catch(function(error) {
-  
+  res.send(error);
   console.log('Request Failed at server 1' + error);
+
 });
 }
 
-function insertmatch(User_id,likedBy_user_id,auth){
+function insertmatch(User_id,likedBy_user_id,auth,res){
 var matchname1="";
 var matchname2="";
 var requestOptions = {
@@ -367,21 +409,24 @@ fetchAction(url, requestOptions)
   return response.json();
 })
 .then(function(result) {
+  res.send(result);
   console.log("match inserted:"+JSON.stringify(result.affected_rows));
 })
 .catch(function(error) {
+  res.send(error);
   console.log('Request Failed at server 4' + error);
 });
 
 })
 .catch(function(error) {
+  res.send(error);
   console.log('Request Failed at server 2' + error);
 });
 
 })
 
 .catch(function(error) {
- 
+ res.send(error);
   console.log('Request Failed at server at server 3' + error);
 });
 
@@ -389,47 +434,6 @@ fetchAction(url, requestOptions)
 }
 
 
-function UpdateLikesTable(user_id, likedBy_user_id, auth,res){
-  console.log(url);
-var requestOptions = {
-    "method": "POST",
-    "headers": {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer "+auth
-    }
-};
-
-
-var body = {
-    "type": "insert",
-    "args": {
-        "table": "LikedBy_SuperLikedBy",
-        "objects": [
-            {
-                "User_id": user_id,
-                "LikedBy_User_id": likedBy_user_id
-            }
-        ]
-    }
-};
-
-requestOptions.body = JSON.stringify(body);
-
-fetchAction(url, requestOptions)
-.then(function(response) {
-  return response.json();
-})
-.then(function(result) {
-  console.log(result);
-})
-.catch(function(error) {
-  res.send(error);
-  console.log('Request Failed at server 5' + error);
-});
-  
- 
-
-}
 
 app.get('/', function (req, res) {
     res.send("Hello World!");
