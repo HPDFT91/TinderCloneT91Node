@@ -1,0 +1,14 @@
+- args:
+    role: user
+    table: LikedBy_SuperLikedBy
+  type: drop_select_permission
+- args:
+    permission:
+      columns:
+      - LikedBy_User_id
+      - User_id
+      - pkLikedBy
+      filter: {}
+    role: user
+    table: LikedBy_SuperLikedBy
+  type: create_select_permission

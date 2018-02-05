@@ -1,0 +1,9 @@
+- args:
+    permission:
+      columns:
+      - LikedBy_User_id
+      - User_id
+      filter: {}
+    role: user
+    table: LikedBy_SuperLikedBy
+  type: create_select_permission

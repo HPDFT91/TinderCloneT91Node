@@ -115,6 +115,7 @@ app.get('/APIEP_Likes/:like_user_id/:likeby_user_id/:auth_key', function(req, re
   var auth=req.params.auth_key;
   var User_id = req.params.like_user_id;
   var likeby_user_id = req.params.likeby_user_id;
+  console.log(auth);
   console.log(User_id);
   console.log(likeby_user_id);
   console.log("Inside server");
