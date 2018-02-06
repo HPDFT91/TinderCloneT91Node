@@ -256,7 +256,7 @@ fetchAction(url, requestOptions)
 })
 .then(function(resul) {
   console.log(resul);
-arr='['+JSON.stringify(result)+','+JSON.stringify(resul)+']'
+arr='['+JSON.stringify(result)+','+JSON.stringify(resul[0])+']'
  // arr.put(result);
  // arr.put(resul);
   console.log(arr);
