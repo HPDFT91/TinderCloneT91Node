@@ -194,6 +194,7 @@ function Signup_Username(username, password, res){
 }
 
 function Login_Username(username, password, res){
+ // JSONArray myArray = new JSONArray();
   var requestOptions = {
     "method": "POST",
     "headers": {
@@ -253,9 +254,13 @@ fetchAction(url, requestOptions)
 .then(function(response) {
   return response.json();
 })
-.then(function(result) {
-  console.log(result);
-  res.send(result);
+.then(function(resul) {
+  console.log(resul);
+arr='['+JSON.stringify(result)+','+JSON.stringify(resul)+']'
+ // arr.put(result);
+ // arr.put(resul);
+  console.log(arr);
+  res.send(arr);
 })
 .catch(function(error) {
   console.log('Request Failed:' + error);
