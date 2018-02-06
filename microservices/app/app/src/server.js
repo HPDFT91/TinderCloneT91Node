@@ -213,11 +213,55 @@ function Login_Username(username, password, res){
 
   fetchAction(url_login, requestOptions)
   .then(function(response) {
-    return response.json();
+   return response.json()
   })
-  .then(function(result) {
+ .then(function(result) {
+
+
     console.log(JSON.stringify(result));
-    res.send(result);
+
+   var auth=result.auth_token;
+       var id=result.hasura_id;
+        console.log(JSON.stringify(auth));
+        var requestOptions = {
+    "method": "POST",
+    "headers": {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer "+auth
+    }
+};
+
+var body = {
+    "type": "select",
+    "args": {
+        "table": "User",
+        "columns": [
+            "Gender",
+            "City"
+        ],
+        "where": {
+            "User_id": {
+                "$eq": id
+            }
+        }
+    }
+};
+
+requestOptions.body = JSON.stringify(body);
+
+fetchAction(url, requestOptions)
+.then(function(response) {
+  return response.json();
+})
+.then(function(result) {
+  console.log(result);
+  res.send(result);
+})
+.catch(function(error) {
+  console.log('Request Failed:' + error);
+  res.send(error);
+});
+
   })
   .catch(function(error) {
     res.send(error);
