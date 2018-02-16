@@ -184,7 +184,7 @@ function UpdateUsersTablePP(hasura_id, file_id, res, prev_result){
     "method": "POST",
     "headers": {
         "Content-Type": "application/json",
-        "Authorization": "Bearer a4d5300e57df6d1e699d021f6fc680e4e932f76625788483"
+        "Authorization": "Bearer 9c97e7194513e57ebbb203a663037676e92a1600804089b4"
     }
   };
 
