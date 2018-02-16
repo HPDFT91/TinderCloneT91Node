@@ -261,16 +261,66 @@ function Signup_Username(username, password, res){
           "password": password
       }
   };
-
+ 
   requestOptions.body = JSON.stringify(body);
-
+var pass= password;
   fetchAction(url_signup, requestOptions,res)
   .then(function(response) {
     return response.json();
   })
   .then(function(result) {
-    console.log(JSON.stringify(result));
-    res.send(result);
+    var userdata=JSON.stringify(result);
+  
+            var res_username= JSON.stringify(result.username);
+            var res_username1= res_username.substring(1,res_username.length-1);
+            var res_password1= JSON.stringify(pass);
+            var res_password= res_password1.substring(1,res_password1.length-1);
+            var res_id= JSON.stringify(result.hasura_id);
+          
+           console.log("id:"+res_id);
+           var url = "https://data.bleed71.hasura-app.io/v1/query";
+            var requestOptions = {
+                "method": "POST",
+                "headers": {
+                "Content-Type": "application/json"
+                }
+            };
+            //console.log("role= "+ res_role);
+            var body = {
+                "type": "insert",
+                "args": {
+                "table": "User",
+                "objects": [
+                    {
+                      "User_id": res_id,//here email needs to be passed after retrieving from the frontend...this is a dummy email...you need to put here the email that the user will enter
+                      "Password": res_password,
+                      "User_name": res_username1,
+                      
+                        }
+                    ]
+                }
+            };
+      
+            requestOptions.body = JSON.stringify(body);
+            fetchAction(url, requestOptions)
+            .then(function(response) {
+          
+                return response.json();
+            })
+            .then(function(result){
+    
+              var arr='['+userdata+','+JSON.stringify(result)+']';
+          
+              res.send(JSON.parse(arr));
+         
+            })
+      
+            .catch(function(error) {
+           
+              res.send(error);
+            console.log('Request Failed:' + error);
+            });
+
   })
   .catch(function(error) {
     console.log('Request Failed:' + error);
