@@ -9,7 +9,7 @@
 # hookUrl: http://localhost:8080/v1/hooks/user-read-write
 #
 # Public: Anybody can read, but only logged in users can upload
- hookUrl: http://localhost:8080/v1/hooks/public-read-user-write
+hookUrl: http://localhost:8080/v1/hooks/public-read-user-write
 #
 # Read Only: Anybody can read, but no one can upload
 # hookUrl: http://localhost:8080/v1/hooks/public-read
