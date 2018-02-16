@@ -5,6 +5,20 @@ var fetchAction =  require('node-fetch');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 
+var multer  = require('multer');
+var fs = require("fs");
+var imagePath;
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'uploads/')
+  },
+  filename: function (req, file, cb) {
+    imagePath = Date.now() + path.extname(file.originalname);
+    cb(null, imagePath) //Appending .jpg
+  }
+})
+var upload = multer({ storage: storage });
+
 var app = express();
 var router = express.Router();
 app.use(cookieParser());
@@ -17,7 +31,7 @@ var url_login = "https://auth.bleed71.hasura-app.io/v1/login";
 var url_logout = "https://auth.bleed71.hasura-app.io/v1/user/logout";
 var url = "https://data.bleed71.hasura-app.io/v1/query";
 var url_getinfo = "https://auth.bleed71.hasura-app.io/v1/user/info";
-
+var url_file_upload = "https://filestore.bleed71.hasura-app.io/v1/file";
 
 function UpdateLikesTable(user_id, likedBy_user_id,auth,res){
   console.log(url);
@@ -151,10 +165,81 @@ app.post('/APIEP_Logout', function(req, res){
   }
 });
 
+app.post('/APIEP_PP', upload.any(), function(req, res, next){
+  var image=fs.readFileSync(req.files[0].destination+'/'+imagePath);
+  var imageType = req.files[0].mimetype;
+  var auth_token = req.body.user_auth_token;
+  if(!auth_token.trim()){
+    res.send("Invalid Auth Token");
+  } else {
+    UploadPP(image, imageType, auth_token, res);
+  }
+});
+
 
 //Functions:
 
+function UpdateUsersTablePP(hasura_id, file_id, res, prev_result){
+  var requestOptions = {
+    "method": "POST",
+    "headers": {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer a4d5300e57df6d1e699d021f6fc680e4e932f76625788483"
+    }
+  };
 
+  var body = {
+      "type": "update",
+      "args": {
+          "table": "User",
+          "where": {
+              "User_id": {
+                  "$eq": hasura_id
+              }
+          },
+          "$set": {
+              "fileid": file_id
+          }
+      }
+  };
+
+  requestOptions.body = JSON.stringify(body);
+
+  fetchAction(url_query, requestOptions)
+  .then(function(response) {
+    return response.json();
+  })
+  .then(function(result) {
+    console.log(result);
+    res.send(prev_result);
+  })
+  .catch(function(error) {
+    console.log('Request Failed:' + error);
+  });
+}
+
+function UploadPP(image, imageType, auth_token, res){
+  var requestOptions = {
+    method: 'POST',
+    headers: {
+        "Authorization": "Bearer "+auth_token,
+        "content-type" : imageType
+    },
+    body: image
+  }
+
+  fetchAction(url_file_upload, requestOptions)
+  .then(function(response) {
+    return response.json();
+  })
+  .then(function(result) {
+    console.log(result);
+    UpdateUsersTablePP(result.user_id, result.file_id, res, result);
+  })
+  .catch(function(error) {
+    console.log('Request Failed:' + error);
+  });
+}
 
 
 
