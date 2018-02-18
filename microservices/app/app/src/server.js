@@ -140,7 +140,8 @@ var body = {
     "args": {
         "table": "Match",
         "columns": [
-            "matching_username1"
+            "matching_username1",
+            "fileid_user1"
         ],
         "where": {
             "matching_user_id2": {
@@ -156,7 +157,7 @@ var body = {
         })
         .then(function(result) {                           //console.log(result);
             Array.from(result).forEach(function(name){
-            MatchList.push(name.matching_username1);
+            MatchList.push({name:name.matching_username1,fileid:name.fileid_user1});
             });
 
             var requestOptions = {
@@ -172,7 +173,8 @@ var body = {
     "args": {
         "table": "Match",
         "columns": [
-            "matching_username2"
+            "matching_username2",
+            "fileid_user2"
         ],
         "where": {
             "matching_user_id1": {
@@ -189,7 +191,7 @@ var body = {
         })
         .then(function(result) {                            //console.log(result);
             Array.from(result).forEach(function(name){
-            MatchList.push(name.matching_username2);
+            MatchList.push({name:name.matching_username2,fileid:name.fileid_user2});
             });
             res.send(MatchList);
           })
