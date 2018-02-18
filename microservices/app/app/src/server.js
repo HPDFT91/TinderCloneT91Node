@@ -496,6 +496,7 @@ var pass= password;
             console.log('Request Failed:' + error);
             });}
             else{
+              res.status(500).send({ error: "user exists" });
              console.log({"message":"user exists"});
             }
 
