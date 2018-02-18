@@ -628,6 +628,9 @@ fetchAction(url, requestOptions)
 function insertmatch(User_id,likedBy_user_id,auth,res){
 var matchname1="";
 var matchname2="";
+var fileid_user1="";
+var fileid_user2="";
+
 var requestOptions = {
     "method": "POST",
     "headers": {
@@ -641,7 +644,8 @@ var body = {
     "args": {
         "table": "User",
         "columns": [
-            "User_name"
+            "User_name",
+            "fileid"
         ],
         "where": {
             "User_id": {
@@ -660,8 +664,10 @@ fetchAction(url, requestOptions)
 
 .then(function(result) {
    var matchname=JSON.stringify(result[0].User_name);
+   var fileid1=JSON.stringify(result[0].fileid);
+   fileid_user1=fileid1.substring(1,matchname.length-1);
    matchname1=matchname.substring(1,matchname.length-1);
-  console.log("match1:"+matchname1);
+  console.log("match1:"+matchname1+"fileid:"+fileid_user1);
 
 var requestOptions = {
     "method": "POST",
@@ -676,7 +682,8 @@ var body = {
     "args": {
         "table": "User",
         "columns": [
-            "User_name"
+            "User_name",
+            "fileid"
         ],
         "where": {
             "User_id": {
@@ -695,6 +702,9 @@ fetchAction(url, requestOptions)
 })
 .then(function(result) {
   var match=JSON.stringify(result[0].User_name);
+  var fileid2=JSON.stringify(result[0].fileid);
+   fileid_user2=fileid2.substring(1,matchname.length-1);
+
   matchname2=match.substring(1,match.length-1);
   console.log("match2:"+matchname2);
 
@@ -715,7 +725,9 @@ var body = {
                 "matching_username2": matchname2,
                 "matching_username1": matchname1,
                 "matching_user_id1": User_id,
-                "matching_user_id2": likedBy_user_id
+                "matching_user_id2": likedBy_user_id,
+                 "fileid_user1": fileid_user1,
+                "fileid_user2": fileid_user2
             }
         ]
     }

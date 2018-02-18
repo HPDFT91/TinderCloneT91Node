@@ -1,0 +1,15 @@
+- args:
+    role: user
+    table: Match
+  type: drop_select_permission
+- args:
+    permission:
+      columns:
+      - fileid_user1
+      - fileid_user2
+      - matching_user_id1
+      - matching_username1
+      filter: {}
+    role: user
+    table: Match
+  type: create_select_permission
