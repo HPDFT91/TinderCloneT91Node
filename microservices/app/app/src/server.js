@@ -222,6 +222,62 @@ app.get('/APIEP_Likes/:like_user_id/:likeby_user_id/:auth_key', function(req, re
  
 });
 
+app.get('/APIEP_UserDetailsforSwipe/:userid/:gender/:city/:auth',function(req,res){
+var gen=req.params.gender;
+var user_id=req.params.userid;
+var city=req.params.city;
+var auth=req.params.auth;
+
+var requestOptions = {
+    "method": "POST",
+    "headers": {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer "+auth
+    }
+};
+
+var body = {
+    "type": "select",
+    "args": {
+        "table": "User",
+        "columns": [
+            "User_id",
+            "User_name",
+            "fileid"
+        ],
+        "where": {
+            "$and": [
+                {
+                    "Gender": {
+                        "$like": gen
+                    }
+                },
+                {
+                    "City": {
+                        "$like": city
+                    }
+                }
+            ]
+        }
+    }
+};
+
+requestOptions.body = JSON.stringify(body);
+
+fetchAction(url, requestOptions)
+.then(function(response) {
+  return response.json();
+})
+.then(function(result) {
+  console.log(result);
+  res.send(result);
+})
+.catch(function(error) {
+  console.log('Request Failed:' + error);
+});
+
+});
+
 app.post('/APIEP_Login_Username', function(req, res){
   var username = req.body.data.username;
   var password = req.body.data.password;
