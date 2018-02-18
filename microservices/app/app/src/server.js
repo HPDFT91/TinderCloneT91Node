@@ -249,7 +249,7 @@ var body = {
             "$and": [
                 {
                     "Gender": {
-                        "$like": gen
+                        "$nlike": gen
                     }
                 },
                 {
@@ -507,7 +507,8 @@ var body = {
         "table": "User",
         "columns": [
             "Gender",
-            "City"
+            "City",
+            "fileid"
         ],
         "where": {
             "User_id": {
