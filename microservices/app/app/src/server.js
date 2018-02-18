@@ -491,15 +491,12 @@ var pass= password;
             })
       
             .catch(function(error) {
-           
-              res.send(error);
             console.log('Request Failed:' + error);
             });
 
   })
   .catch(function(error) {
     console.log('Request Failed:' + error);
-    res.send('Request Failed:' + error);
   });
 }
 
