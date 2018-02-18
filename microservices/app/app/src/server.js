@@ -436,15 +436,17 @@ function Signup_Username(username, password, res){
           "password": password
       }
   };
- 
+ var status;
   requestOptions.body = JSON.stringify(body);
 var pass= password;
   fetchAction(url_signup, requestOptions,res)
   .then(function(response) {
+    status=response.status;
+    console.log(status);
     return response.json();
   })
   .then(function(result) {
-    var userdata=JSON.stringify(result);
+    if(status==200){var userdata=JSON.stringify(result);
   
             var res_username= JSON.stringify(result.username);
             var res_username1= res_username.substring(1,res_username.length-1);
@@ -492,7 +494,10 @@ var pass= password;
       
             .catch(function(error) {
             console.log('Request Failed:' + error);
-            });
+            });}
+            else{
+              res.send({"message":"user exists"});
+            }
 
   })
   .catch(function(error) {
