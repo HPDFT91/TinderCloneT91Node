@@ -123,7 +123,85 @@ app.post('/APIEP_Signup_Username', function(req, res){
   }
 });
 
+app.get('/APIEP_MatchList/:curruserid/:auth_key',function(req,res){
+var MatchList = [];
+var userid=req.params.curruserid;
+var auth=req.params.auth_key;
+var requestOptions = {
+    "method": "POST",
+    "headers": {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer "+auth
+    }
+};
 
+var body = {
+    "type": "select",
+    "args": {
+        "table": "Match",
+        "columns": [
+            "matching_username1"
+        ],
+        "where": {
+            "matching_user_id2": {
+                "$eq": userid
+            }
+        }
+    }
+};
+        requestOptions.body = JSON.stringify(body);
+        fetchAction(url, requestOptions)
+        .then(function(response) {
+            return response.json();
+        })
+        .then(function(result) {                           //console.log(result);
+            Array.from(result).forEach(function(name){
+            MatchList.push(name.matching_username1);
+            });
+
+            var requestOptions = {
+    "method": "POST",
+    "headers": {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer "+auth
+    }
+};
+
+var body = {
+    "type": "select",
+    "args": {
+        "table": "Match",
+        "columns": [
+            "matching_username2"
+        ],
+        "where": {
+            "matching_user_id1": {
+                "$eq": userid
+            }
+        }
+    }
+};
+
+ requestOptions.body = JSON.stringify(body);
+        fetchAction(url, requestOptions)
+        .then(function(response) {
+            return response.json();
+        })
+        .then(function(result) {                            //console.log(result);
+            Array.from(result).forEach(function(name){
+            MatchList.push(name.matching_username2);
+            });
+            res.send(MatchList);
+          })
+          .catch(function(error) {
+          console.log('Request Failed:' + error);
+          });
+
+         })
+        .catch(function(error) {
+          console.log('Request Failed:' + error);
+        });
+      });
 
 app.get('/APIEP_Likes/:like_user_id/:likeby_user_id/:auth_key', function(req, res){
   var auth=req.params.auth_key;
