@@ -283,7 +283,7 @@ function UpdateUsersTablePP(hasura_id, file_id, res, prev_result){
 
   requestOptions.body = JSON.stringify(body);
 
-  fetchAction(url_query, requestOptions)
+  fetchAction(url, requestOptions)
   .then(function(response) {
     return response.json();
   })
