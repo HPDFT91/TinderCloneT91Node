@@ -1,0 +1,9 @@
+- args:
+    permission:
+      columns:
+      - matching_user_id1
+      - matching_username1
+      filter: {}
+    role: user
+    table: Match
+  type: create_select_permission
