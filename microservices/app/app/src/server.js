@@ -140,7 +140,8 @@ var body = {
     "args": {
         "table": "Match",
         "columns": [
-            "matching_username1"
+            "matching_username1",
+            "fileid_user1"
         ],
         "where": {
             "matching_user_id2": {
@@ -156,7 +157,7 @@ var body = {
         })
         .then(function(result) {                           //console.log(result);
             Array.from(result).forEach(function(name){
-            MatchList.push(name.matching_username1);
+            MatchList.push({name:name.matching_username1,fileid:name.fileid_user1});
             });
 
             var requestOptions = {
@@ -172,7 +173,8 @@ var body = {
     "args": {
         "table": "Match",
         "columns": [
-            "matching_username2"
+            "matching_username2",
+            "fileid_user2"
         ],
         "where": {
             "matching_user_id1": {
@@ -189,7 +191,7 @@ var body = {
         })
         .then(function(result) {                            //console.log(result);
             Array.from(result).forEach(function(name){
-            MatchList.push(name.matching_username2);
+            MatchList.push({name:name.matching_username2,fileid:name.fileid_user2});
             });
             res.send(MatchList);
           })
@@ -227,7 +229,7 @@ var gen=req.params.gender;
 var user_id=req.params.userid;
 var city=req.params.city;
 var auth=req.params.auth;
-
+var ids=[];
 var requestOptions = {
     "method": "POST",
     "headers": {
@@ -235,6 +237,34 @@ var requestOptions = {
         "Authorization": "Bearer "+auth
     }
 };
+
+var body = {
+    "type": "select",
+    "args": {
+        "table": "LikedBy_SuperLikedBy",
+        "columns": [
+            "User_id"
+        ],
+        "where": {
+            "LikedBy_User_id": {
+                "$eq": user_id
+            }
+        }
+    }
+};
+
+requestOptions.body = JSON.stringify(body);
+
+fetchAction(url, requestOptions)
+.then(function(response) {
+  return response.json();
+})
+.then(function(result) {
+console.log(result);
+   Array.from(result).forEach(function(name){
+            ids.push(name.User_id);
+            });
+  console.log(ids);
 
 var body = {
     "type": "select",
@@ -254,7 +284,12 @@ var body = {
                 },
                 {
                     "City": {
-                        "$like": city
+                        "$like":  city
+                    }
+                },
+                {
+                    "User_id": {
+                        "$nin": ids
                     }
                 }
             ]
@@ -275,6 +310,12 @@ fetchAction(url, requestOptions)
 .catch(function(error) {
   console.log('Request Failed:' + error);
 });
+ 
+})
+.catch(function(error) {
+  console.log('Request Failed:' + error);
+});
+
 
 });
 
@@ -395,15 +436,17 @@ function Signup_Username(username, password, res){
           "password": password
       }
   };
- 
+ var status;
   requestOptions.body = JSON.stringify(body);
 var pass= password;
   fetchAction(url_signup, requestOptions,res)
   .then(function(response) {
+    status=response.status;
+    console.log(status);
     return response.json();
   })
   .then(function(result) {
-    var userdata=JSON.stringify(result);
+    if(status==200){var userdata=JSON.stringify(result);
   
             var res_username= JSON.stringify(result.username);
             var res_username1= res_username.substring(1,res_username.length-1);
@@ -450,15 +493,16 @@ var pass= password;
             })
       
             .catch(function(error) {
-           
-              res.send(error);
             console.log('Request Failed:' + error);
-            });
+            });}
+            else{
+              res.status(500).send({ error: "user exists" });
+             console.log({"message":"user exists"});
+            }
 
   })
   .catch(function(error) {
     console.log('Request Failed:' + error);
-    res.send('Request Failed:' + error);
   });
 }
 
@@ -665,7 +709,7 @@ fetchAction(url, requestOptions)
 .then(function(result) {
    var matchname=JSON.stringify(result[0].User_name);
    var fileid1=JSON.stringify(result[0].fileid);
-   fileid_user1=fileid1.substring(1,matchname.length-1);
+   fileid_user1=fileid1.substring(1,fileid1.length-1);
    matchname1=matchname.substring(1,matchname.length-1);
   console.log("match1:"+matchname1+"fileid:"+fileid_user1);
 
@@ -703,7 +747,7 @@ fetchAction(url, requestOptions)
 .then(function(result) {
   var match=JSON.stringify(result[0].User_name);
   var fileid2=JSON.stringify(result[0].fileid);
-   fileid_user2=fileid2.substring(1,matchname.length-1);
+   fileid_user2=fileid2.substring(1,fileid2.length-1);
 
   matchname2=match.substring(1,match.length-1);
   console.log("match2:"+matchname2);
