@@ -502,6 +502,7 @@ var pass= password;
 
   })
   .catch(function(error) {
+
     console.log('Request Failed:' + error);
   });
 }
@@ -527,10 +528,12 @@ function Login_Username(username, password, res){
 
   fetchAction(url_login, requestOptions)
   .then(function(response) {
+       status=response.status;
+    console.log(status);
    return response.json()
   })
  .then(function(result) {
-
+if(status==200){
 
     console.log(JSON.stringify(result));
 
@@ -578,12 +581,15 @@ arr='['+JSON.stringify(result)+','+JSON.stringify(resul[0])+']'
 })
 .catch(function(error) {
   console.log('Request Failed:' + error);
-  res.send(error);
-});
+});}
+else{
+  res.status(500).send({error:"wrong credentials"});
+  console.log(status);
+}
 
   })
   .catch(function(error) {
-    res.send(error);
+  
     console.log('Request Failed:' + error);
   });
 }
