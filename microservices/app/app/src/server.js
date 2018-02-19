@@ -117,7 +117,7 @@ app.post('/APIEP_Signup_Username', function(req, res){
   var username = req.body.data.username;
   var password = req.body.data.password;
   if (!username.trim() || !password.trim()) {
-    res.send("One or more fields is empty!");
+    res.status(500).send("One or more fields is empty!");
   } else {
     Signup_Username(username, password, res);
   }
@@ -323,7 +323,7 @@ app.post('/APIEP_Login_Username', function(req, res){
   var username = req.body.data.username;
   var password = req.body.data.password;
   if (!username.trim() || !password.trim()) {
-    res.send("One or more fields is empty!");
+    res.status(500).send("One or more fields is empty!");
   } else {
     Login_Username(username, password, res);
   }
