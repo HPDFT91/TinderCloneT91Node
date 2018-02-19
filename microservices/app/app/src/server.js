@@ -469,7 +469,7 @@ var pass= password;
                 "table": "User",
                 "objects": [
                     {
-                      "User_id": res_id,//here email needs to be passed after retrieving from the frontend...this is a dummy email...you need to put here the email that the user will enter
+                      "User_id": res_id,
                       "Password": res_password,
                       "User_name": res_username1,
                       
