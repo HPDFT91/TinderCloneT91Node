@@ -33,50 +33,6 @@ var url = "https://data.bleed71.hasura-app.io/v1/query";
 var url_getinfo = "https://auth.bleed71.hasura-app.io/v1/user/info";
 var url_file_upload = "https://filestore.bleed71.hasura-app.io/v1/file";
 
-function UpdateLikesTable(user_id, likedBy_user_id,auth,res){
-  console.log(url);
-var requestOptions = {
-    "method": "POST",
-    "headers": {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer "+auth
-    }
-};
-
-
-var body = {
-    "type": "insert",
-    "args": {
-        "table": "LikedBy_SuperLikedBy",
-        "objects": [
-            {
-                "User_id": user_id,
-                "LikedBy_User_id": likedBy_user_id
-            }
-        ]
-    }
-};
-
-requestOptions.body = JSON.stringify(body);
-
-fetchAction(url, requestOptions)
-.then(function(response) {
-  return response.json();
-})
-.then(function(result) {
-  console.log(result);
-   Match_is_present(user_id,likedBy_user_id,auth,res);
-})
-.catch(function(error) {
-  res.send(error);
-  console.log('Request Failed at server 5' + error);
-});
-  
- 
-
-}
-
-
 
 
 /*function testing(){
@@ -123,8 +79,55 @@ app.post('/APIEP_Signup_Username', function(req, res){
   }
 });
 
+app.get('/APIEP_GetPictures/:curruserid/:auth_key',function(req,res){
+
+  var userid=req.params.curruserid;
+  var auth=req.params.auth_key;
+
+  var requestOptions = {
+    "method": "POST",
+    "headers": {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer "+auth
+    }
+};
+
+var body = {
+    "type": "select",
+    "args": {
+        "table": "User",
+        "columns": [
+            "userImage1",
+            "userImage2",
+            "userImage3"
+        ],
+        "where": {
+            "User_id": {
+                "$eq": userid
+            }
+        }
+    }
+};
+
+requestOptions.body = JSON.stringify(body);
+
+fetchAction(url, requestOptions)
+.then(function(response) {
+  return response.json();
+})
+.then(function(result) {
+  res.send(result);
+  console.log(result);
+})
+.catch(function(error) {
+  console.log('Request Failed:' + error);
+});
+
+
+});
+
 app.get('/APIEP_MatchList/:curruserid/:auth_key',function(req,res){
-var MatchList = [];
+ var MatchList = [];
 var userid=req.params.curruserid;
 var auth=req.params.auth_key;
 var requestOptions = {
@@ -205,6 +208,9 @@ var body = {
         });
       });
 
+
+
+
 app.get('/APIEP_Likes/:like_user_id/:likeby_user_id/:auth_key', function(req, res){
   var auth=req.params.auth_key;
   var User_id = req.params.like_user_id;
@@ -224,8 +230,11 @@ app.get('/APIEP_Likes/:like_user_id/:likeby_user_id/:auth_key', function(req, re
  
 });
 
+
+
+
 app.get('/APIEP_UserDetailsforSwipe/:userid/:gender/:city/:auth',function(req,res){
-var gen=req.params.gender;
+ var gen=req.params.gender;
 var user_id=req.params.userid;
 var city=req.params.city;
 var auth=req.params.auth;
@@ -319,6 +328,9 @@ fetchAction(url, requestOptions)
 
 });
 
+
+
+
 app.post('/APIEP_Login_Username', function(req, res){
   var username = req.body.data.username;
   var password = req.body.data.password;
@@ -328,6 +340,9 @@ app.post('/APIEP_Login_Username', function(req, res){
     Login_Username(username, password, res);
   }
 });
+
+
+
 
 
 app.post('/APIEP_Logout', function(req, res){
@@ -340,6 +355,8 @@ app.post('/APIEP_Logout', function(req, res){
   }
 });
 
+
+
 app.post('/APIEP_PP', upload.any(), function(req, res, next){
   var image=fs.readFileSync(req.files[0].destination+'/'+imagePath);
   var imageType = req.files[0].mimetype;
@@ -351,8 +368,93 @@ app.post('/APIEP_PP', upload.any(), function(req, res, next){
   }
 });
 
+//Extra Images of users-Extended Idea
+
+
+app.post('/APIEP_UserImage1', upload.any(), function(req, res, next){
+  var image=fs.readFileSync(req.files[0].destination+'/'+imagePath);
+  var imageType = req.files[0].mimetype;
+  var auth_token = req.body.user_auth_token;
+  if(!auth_token.trim()){
+    res.send("Invalid Auth Token");
+  } else {
+    UploadUserImage1(image, imageType, auth_token, res);
+  }
+});
+
+
+app.post('/APIEP_UserImage2', upload.any(), function(req, res, next){
+  var image=fs.readFileSync(req.files[0].destination+'/'+imagePath);
+  var imageType = req.files[0].mimetype;
+  var auth_token = req.body.user_auth_token;
+  if(!auth_token.trim()){
+    res.send("Invalid Auth Token");
+  } else {
+    UploadUserImage1(image, imageType, auth_token, res);
+  }
+});
+
+
+app.post('/APIEP_UserImage3', upload.any(), function(req, res, next){
+  var image=fs.readFileSync(req.files[0].destination+'/'+imagePath);
+  var imageType = req.files[0].mimetype;
+  var auth_token = req.body.user_auth_token;
+  if(!auth_token.trim()){
+    res.send("Invalid Auth Token");
+  } else {
+    UploadUserImage1(image, imageType, auth_token, res);
+  }
+});
+
+
 
 //Functions:
+
+function UpdateLikesTable(user_id, likedBy_user_id,auth,res){
+  console.log(url);
+var requestOptions = {
+    "method": "POST",
+    "headers": {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer "+auth
+    }
+};
+
+
+var body = {
+    "type": "insert",
+    "args": {
+        "table": "LikedBy_SuperLikedBy",
+        "objects": [
+            {
+                "User_id": user_id,
+                "LikedBy_User_id": likedBy_user_id
+            }
+        ]
+    }
+};
+
+requestOptions.body = JSON.stringify(body);
+
+fetchAction(url, requestOptions)
+.then(function(response) {
+  return response.json();
+})
+.then(function(result) {
+  console.log(result);
+   Match_is_present(user_id,likedBy_user_id,auth,res);
+})
+.catch(function(error) {
+  res.send(error);
+  console.log('Request Failed at server 5' + error);
+});
+  
+ 
+
+}
+
+
+
 
 function UpdateUsersTablePP(hasura_id, file_id, res, prev_result){
   var requestOptions = {
@@ -393,6 +495,133 @@ function UpdateUsersTablePP(hasura_id, file_id, res, prev_result){
   });
 }
 
+
+
+
+function UpdateUsersTableImage1(hasura_id, file_id, res, prev_result){
+  var requestOptions = {
+    "method": "POST",
+    "headers": {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer 9c97e7194513e57ebbb203a663037676e92a1600804089b4"
+    }
+  };
+
+  var body = {
+      "type": "update",
+      "args": {
+          "table": "User",
+          "where": {
+              "User_id": {
+                  "$eq": hasura_id
+              }
+          },
+          "$set": {
+              "userImage1": file_id
+          }
+      }
+  };
+
+  requestOptions.body = JSON.stringify(body);
+
+  fetchAction(url, requestOptions)
+  .then(function(response) {
+    return response.json();
+  })
+  .then(function(result) {
+    console.log(result);
+    res.send(prev_result);
+  })
+  .catch(function(error) {
+    console.log('Request Failed:' + error);
+  });
+}
+
+
+
+function UpdateUsersTableImage2(hasura_id, file_id, res, prev_result){
+  var requestOptions = {
+    "method": "POST",
+    "headers": {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer 9c97e7194513e57ebbb203a663037676e92a1600804089b4"
+    }
+  };
+
+  var body = {
+      "type": "update",
+      "args": {
+          "table": "User",
+          "where": {
+              "User_id": {
+                  "$eq": hasura_id
+              }
+          },
+          "$set": {
+              "userImage2": file_id
+          }
+      }
+  };
+
+  requestOptions.body = JSON.stringify(body);
+
+  fetchAction(url, requestOptions)
+  .then(function(response) {
+    return response.json();
+  })
+  .then(function(result) {
+    console.log(result);
+    res.send(prev_result);
+  })
+  .catch(function(error) {
+    console.log('Request Failed:' + error);
+  });
+}
+
+
+
+function UpdateUsersTableImage3(hasura_id, file_id, res, prev_result){
+  var requestOptions = {
+    "method": "POST",
+    "headers": {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer 9c97e7194513e57ebbb203a663037676e92a1600804089b4"
+    }
+  };
+
+  var body = {
+      "type": "update",
+      "args": {
+          "table": "User",
+          "where": {
+              "User_id": {
+                  "$eq": hasura_id
+              }
+          },
+          "$set": {
+              "userImage3": file_id
+          }
+      }
+  };
+
+  requestOptions.body = JSON.stringify(body);
+
+  fetchAction(url, requestOptions)
+  .then(function(response) {
+    return response.json();
+  })
+  .then(function(result) {
+    console.log(result);
+    res.send(prev_result);
+  })
+  .catch(function(error) {
+    console.log('Request Failed:' + error);
+  });
+}
+
+
+
+
 function UploadPP(image, imageType, auth_token, res){
   var requestOptions = {
     method: 'POST',
@@ -410,6 +639,83 @@ function UploadPP(image, imageType, auth_token, res){
   .then(function(result) {
     console.log(result);
     UpdateUsersTablePP(result.user_id, result.file_id, res, result);
+  })
+  .catch(function(error) {
+    console.log('Request Failed:' + error);
+  });
+}
+
+
+
+
+function UploadUserImage1(image, imageType, auth_token, res){
+  var requestOptions = {
+    method: 'POST',
+    headers: {
+        "Authorization": "Bearer "+auth_token,
+        "content-type" : imageType
+    },
+    body: image
+  }
+
+  fetchAction(url_file_upload, requestOptions)
+  .then(function(response) {
+    return response.json();
+  })
+  .then(function(result) {
+    console.log(result);
+    UpdateUsersTableImage1(result.user_id, result.file_id, res, result);
+  })
+  .catch(function(error) {
+    console.log('Request Failed:' + error);
+  });
+}
+
+
+
+function UploadUserImage2(image, imageType, auth_token, res){
+  var requestOptions = {
+    method: 'POST',
+    headers: {
+        "Authorization": "Bearer "+auth_token,
+        "content-type" : imageType
+    },
+    body: image
+  }
+
+  fetchAction(url_file_upload, requestOptions)
+  .then(function(response) {
+    return response.json();
+  })
+  .then(function(result) {
+    console.log(result);
+    UpdateUsersTableImage1(result.user_id, result.file_id, res, result);
+  })
+  .catch(function(error) {
+    console.log('Request Failed:' + error);
+  });
+}
+
+
+
+
+function UploadUserImage3(image, imageType, auth_token, res){
+  var requestOptions = {
+    method: 'POST',
+    headers: {
+        "Authorization": "Bearer "+auth_token,
+        "content-type" : imageType
+    },
+    body: image
+  }
+
+  fetchAction(url_file_upload, requestOptions)
+  .then(function(response) {
+    return response.json();
+  })
+  .then(function(result) {
+    console.log(result);
+    UpdateUsersTableImage1(result.user_id, result.file_id, res, result);
   })
   .catch(function(error) {
     console.log('Request Failed:' + error);
@@ -507,8 +813,10 @@ var pass= password;
   });
 }
 
+
+
 function Login_Username(username, password, res){
- // JSONArray myArray = new JSONArray();
+
   var requestOptions = {
     "method": "POST",
     "headers": {
@@ -594,6 +902,8 @@ else{
   });
 }
 
+
+
 function Logout(auth, res){
   var requestOptions = {
     "method": "POST",
@@ -616,6 +926,8 @@ function Logout(auth, res){
     console.log('Request Failed:' + error);
   });
 }
+
+
 
 
 function Match_is_present(User_id,likedBy_user_id,auth,res){
@@ -674,6 +986,9 @@ fetchAction(url, requestOptions)
 
 });
 }
+
+
+
 
 function insertmatch(User_id,likedBy_user_id,auth,res){
 var matchname1="";
@@ -810,6 +1125,8 @@ fetchAction(url, requestOptions)
 
 
 }
+
+
 
 
 
