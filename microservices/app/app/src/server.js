@@ -390,7 +390,7 @@ app.post('/APIEP_UserImage2', upload.any(), function(req, res, next){
   if(!auth_token.trim()){
     res.send("Invalid Auth Token");
   } else {
-    UploadUserImage1(image, imageType, auth_token, res);
+    UploadUserImage2(image, imageType, auth_token, res);
   }
 });
 
@@ -402,7 +402,7 @@ app.post('/APIEP_UserImage3', upload.any(), function(req, res, next){
   if(!auth_token.trim()){
     res.send("Invalid Auth Token");
   } else {
-    UploadUserImage1(image, imageType, auth_token, res);
+    UploadUserImage3(image, imageType, auth_token, res);
   }
 });
 
