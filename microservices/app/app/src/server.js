@@ -689,7 +689,7 @@ function UploadUserImage2(image, imageType, auth_token, res){
   })
   .then(function(result) {
     console.log(result);
-    UpdateUsersTableImage1(result.user_id, result.file_id, res, result);
+    UpdateUsersTableImage2(result.user_id, result.file_id, res, result);
   })
   .catch(function(error) {
     console.log('Request Failed:' + error);
@@ -715,7 +715,7 @@ function UploadUserImage3(image, imageType, auth_token, res){
   })
   .then(function(result) {
     console.log(result);
-    UpdateUsersTableImage1(result.user_id, result.file_id, res, result);
+    UpdateUsersTableImage3(result.user_id, result.file_id, res, result);
   })
   .catch(function(error) {
     console.log('Request Failed:' + error);
