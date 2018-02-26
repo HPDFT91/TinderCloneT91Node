@@ -503,7 +503,7 @@ function UpdateUsersTableImage1(hasura_id, file_id, res, prev_result){
     "method": "POST",
     "headers": {
         "Content-Type": "application/json",
-        "Authorization": "Bearer 9c97e7194513e57ebbb203a663037676e92a1600804089b4"
+        "Authorization": "Bearer dc6f122262155a058d260df14f261fad1314acf3a5bb9035"
     }
   };
 
