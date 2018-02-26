@@ -498,12 +498,12 @@ function UpdateUsersTablePP(hasura_id, file_id, res, prev_result){
 
 
 
-function UpdateUsersTableImage1(auth_token,hasura_id, file_id, res, prev_result){
+function UpdateUsersTableImage1(hasura_id, file_id, res, prev_result){
   var requestOptions = {
     "method": "POST",
     "headers": {
         "Content-Type": "application/json",
-        "Authorization": "Bearer "+auth_token
+        "Authorization": "Bearer dc6f122262155a058d260df14f261fad1314acf3a5bb9035"
     }
   };
 
@@ -544,7 +544,7 @@ function UpdateUsersTableImage2(hasura_id, file_id, res, prev_result){
     "method": "POST",
     "headers": {
         "Content-Type": "application/json",
-        "Authorization": "Bearer 9c97e7194513e57ebbb203a663037676e92a1600804089b4"
+        "Authorization": "Bearer dc6f122262155a058d260df14f261fad1314acf3a5bb9035"
     }
   };
 
@@ -585,7 +585,7 @@ function UpdateUsersTableImage3(hasura_id, file_id, res, prev_result){
     "method": "POST",
     "headers": {
         "Content-Type": "application/json",
-        "Authorization": "Bearer 9c97e7194513e57ebbb203a663037676e92a1600804089b4"
+        "Authorization": "Bearer dc6f122262155a058d260df14f261fad1314acf3a5bb9035"
     }
   };
 
@@ -664,7 +664,7 @@ function UploadUserImage1(image, imageType, auth_token, res){
   })
   .then(function(result) {
     console.log(result);
-    UpdateUsersTableImage1(auth_token,result.user_id, result.file_id, res, result);
+    UpdateUsersTableImage1(result.user_id, result.file_id, res, result);
   })
   .catch(function(error) {
     console.log('Request Failed:' + error);
