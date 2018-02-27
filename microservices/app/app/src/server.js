@@ -623,6 +623,7 @@ function UpdateUsersTableImage3(hasura_id, file_id, res, prev_result){
 
 
 function UploadPP(image, imageType, auth_token, res){
+    var auth=auth_token;
   var requestOptions = {
     method: 'POST',
     headers: {
@@ -638,7 +639,7 @@ function UploadPP(image, imageType, auth_token, res){
   })
   .then(function(result) {
     console.log(result);
-    UpdateUsersTablePP(auth_token,result.user_id, result.file_id, res, result);
+    UpdateUsersTablePP(auth,result.user_id, result.file_id, res, result);
   })
   .catch(function(error) {
     console.log('Request Failed:' + error);
