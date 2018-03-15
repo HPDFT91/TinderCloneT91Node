@@ -1,113 +1,35 @@
-# hello-nodejs-express
+# MatchMe
 
-This quickstart consists of a basic hasura project with a simple nodejs express app running on it. Once this project is deployed, you will have the nodejs app running on your [cluster](https://docs.hasura.io/0.15/manual/getting-started/index.html#concept-2-a-hasura-cluster).
+This is a clone of the popular dating app Tinder, which allows users to find, like or dislike other users and chat if both parties like
+each other.
 
-Follow along below to learn about how this quickstart works.
+This clone project features both the Tinder interfaces, i.e. Mobile and Web and is built using React-Native and ReactJS respectively
+with Nodejs as backend.
 
-## Prerequisites
+This app clones the basic functionality of the official app as listed below:
 
-* Ensure that you have the [hasura cli](https://docs.hasura.io/0.15/manual/install-hasura-cli.html) tool installed on your system.
+* Users can signup using username password type of registration, using “Username” provider.
+* Users can login and view their profile.
+* They can update their profile photo, city and gender in the profile screen.
+* Users can view cards of other users based on their preference of city and gender.
+* Users can swipe the cards indicating like or dislike.
+* If two users like each other, they will notified.
+* Follow along below to learn about how this quickstart works.
 
-```sh
-$ hasura version
-```
+## Extended Idea
+* As part of the extended idea, we have added a feature to allow users to upload pictures from the Profile Screen.
+* When a user's card is seen by another user, he/she can tap on the card to view the user's images.
 
-Once you have installed the hasura cli tool, login to your Hasura account
+## Get Started
+To get started with any of the availabe interfaces, you’ll need to clone this repo to your local machine.
+Follow the respective steps below.
 
-```sh
-$ # Login if you haven't already
-$ hasura login
-```
+Note : Make sure that the backend server is not sleeping, if it is make any request to it (or go to https://app.bleed71.hasura-app.io).
+It usually takes about 1-2 minutes to wake up.
 
-* You should have [Node.js](https://nodejs.org/en/) installed on your system, you can check this by:
+Note: The Below App description works only for the Hasura 'bleed71' cluster used by us.If you want to run the backend for your self on your own cluster refer https://docs.hasura.io/0.15/manual/cluster/index.html .Replace 'bleed71' in the React Native code with 'your_cluster_name'.
 
-```sh
-# To check the version of node installed
-$ node -v
-
-# Node comes with npm. To check the version of npm installed
-$ npm -v
-```
-
-* You should also have [git](https://git-scm.com) installed.
-
-```sh
-$ git --version
-```
-
-## Getting started
-
-```sh
-$ # Get the project folder and create the cluster in one shot
-$ hasura quickstart hasura/hello-nodejs-express
-
-$ # Navigate into the Project
-$ cd hello-nodejs-express
-
-```
-
-![Quickstart](https://raw.githubusercontent.com/hasura/hello-nodejs-express/new/assets/quickstart.png "Quickstart")
-
-The `quickstart` command does the following:
-1. Creates a new folder in the current working directory called `hello-nodejs-express`
-2. Creates a new trial hasura cluster for you and sets that cluster as the default cluster for this project. (In this case, the cluster created is called `bogey45`)
-3. Initializes `hello-nodejs-express` as a git repository and adds the necessary git remotes.
-
-## The Hasura Cluster
-
-Everytime you perform a `hasura quickstart <quickstart-name>`, hasura creates a free cluster for you. Every cluster is given a name, in this case, the name of the cluster is `bogey45`. To view the status and other information about this cluster:
-
-```sh
-$ hasura cluster status
-```
-
-![ClusterStatus](https://raw.githubusercontent.com/hasura/hello-nodejs-express/new/assets/clusterstatus.png "ClusterStatus")
-
-The `Cluster Configuration` says that the local and cluster configurations are different, this is because we have not deployed our local project to our cluster. Let's do that next.
-
-## Deploy app to cluster
-
-```sh
-$ # Ensure that you are in the hello-nodejs-express directory
-$ # Git add, commit & push to deploy to your cluster
-$ git add .
-$ git commit -m 'First commit'
-$ git push hasura master
-```
-
-Once the above commands complete successfully, your project is deployed to your cluster.
-
-You can open up the app directly in your browser by navigating to `https://api.<cluster-name>.hasura-app.io` (Replace `<cluster-name>` with your cluster name, this case `bogey45`)
-
-The URL should return "Hello World".
-
-## More on deployment
-
-### Deploying changes
-
-Now, lets make some changes to our `nodejs` app and then deploy those changes.
-
-Modify the `server.js` file at `microservices/api/src/service.js` by uncommenting line 14 - 18
-
-```javascript
-app.get('/json', function(req, res) {
-  res.json({
-    message: 'Hello world'
-  })
-});
-```
-
-The above code is adding another route which returns "Hello world" as a JSON in the format
-
-```json
-{
-  "message": "Hello world"
-}
-```
-
-Save `server.js`.
-
-To deploy these changes to your cluster, you just have to commit the changes to git and perform a git push to the `hasura` remote.
+To deploy this Backend changes to your cluster, you just have to commit the changes to git and perform a git push to the `hasura` remote after creating the cluster.
 
 ```sh
 $ # Git add, commit & push to deploy to your cluster
@@ -116,81 +38,25 @@ $ git commit -m 'Added a new route'
 $ git push hasura master
 ```
 
-To see the changes, open the URL and navigate to `/json` (`https://api.<cluster-name>.hasura-app.io/json`, replace `<cluster-name>` with your cluster name)
+## React Native ( Mobile Front-end )
+Simply download and install the .apk on your Android device from the following link:https://drive.google.com/folderviewid=1w7gifAKbGlzRM9YYVCSdkemwzO4yQpYN
 
-### View Logs
-
-To view the logs for your microservice
-
+(OR)
+* Open Git Bash
+* After cloning the repository successfully, cd into the TinderClone folder.
+* Run the following commands:
 ```sh
-$ # app is the service name
-$ hasura microservice logs app
+npm install
+react-native run-android
 ```
+Note : You’ll need to have an Android emulator (or real device connected to the computer via USB cable) or an iPhone emulator running to use the App.
 
-## Customize your deployment
 
-### Dockerfile
+## Hasura Feature Checklist
+The following Hasura features were used to develop this app.
+* Hasura Auth
+* Hasura Data
+* Hasura Microservice
+* Hasura Filestore
 
-Microservices on Hasura are deployed as Docker containers managed on a Kubernetes cluster. You can know more about this [here](https://docs.hasura.io/0.15/manual/custom-microservices/develop-custom-services/index.html#using-a-dockerfile)
 
-A `Dockerfile` contains the instructions for building the docker image. Therefore, understanding how the `Dockerfile` works will help you tweak this quickstart for your own needs.
-
-```Dockerfile
-
-# Step 1: Fetches a base container which has node installed on it
-FROM mhart/alpine-node:7.6.0
-
-# Step 2: Adds everything from /microservices/api/src to a /src directory inside the container
-ADD src /src
-
-# Step 3: Sets the work directory to be /src
-WORKDIR /src
-
-# Step 4: Installs the node modules inside the container
-# Note: Since at STEP 3 we set the work directory to be /src, npm install is run inside the /src directory which has the package.json
-RUN npm install
-
-#Step 5
-# This is the instruction to run the server
-CMD ["node", "server.js"]
-```
-
-### Migrating existing app
-
-If you already have a prebuilt nodejs app and would want to use that. You have to replace the contents inside the `microservices/api/src` directory with your app files.
-
-What matters is that the `Dockerfile` and the `k8s.yaml` file remain where they are, i.e at `microservices/api/`. Ensure that you make the necessary changes to the `Dockerfile` such that it runs your app. You can learn more about `Docker` and `Dockerfiles` from [here](https://docs.docker.com/)
-
-## Running the app locally
-
-Everytime you push, your code will get deployed on a public URL. However, for faster iteration you should locally test your changes.
-
-### Running on your machine
-
-```sh
-$ # Navigate to the src directory
-$ cd microservices/api/src
-
-$ # Install the node dependencies
-$ npm install
-
-$ # Start the server
-$ node server.js
-```
-
-Your app will be running on your local port 8080
-
-### Running on a local docker container
-
-You can use the following steps to test out your dockerfile locally before pushing it to your cluster
-
-```sh
-$ # Navigate to the api directory
-$ cd microservices/api
-
-$ # Build the docker image (Note the . at the end, this searches for the Dockerfile in the current directory)
-$ docker build -t nodejs-express .
-
-$ # Run the command inside the container and publish the containers port 8080 to the localhost 8080 of your machine
-$ docker run -p 8080:8080 -ti nodejs-express
-```
