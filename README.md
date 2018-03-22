@@ -20,6 +20,14 @@ This app clones the basic functionality of the official app as listed below:
 * As part of the extended idea, we have added a feature to allow users to upload pictures from the Profile Screen.
 * When a user's card is seen by another user, he/she can tap on the card to view the user's images.
 
+## Screenshots
+<img src="https://github.com/HPDFT91/TinderCloneT91Node/blob/master/gitDocs/ss1.png" height="350"
+ width="200">  <img src="https://github.com/HPDFT91/TinderCloneT91Node/blob/master/gitDocs/ss2.png" height="350"
+ width="200">  <img src="https://github.com/HPDFT91/TinderCloneT91Node/blob/master/gitDocs/ss3.png" height="350"
+ width="200">  <img src="https://github.com/HPDFT91/TinderCloneT91Node/blob/master/gitDocs/ss4.png" height="350"
+ width="200">  <img src="https://github.com/HPDFT91/TinderCloneT91Node/blob/master/gitDocs/ss5.png" height="350"
+ width="200">  <img src="https://github.com/HPDFT91/TinderCloneT91Node/blob/master/gitDocs/ss6.png" height="350"
+ width="200">
 ## Get Started
 To get started with any of the availabe interfaces, you’ll need to clone this repo to your local machine.
 Follow the respective steps below.
