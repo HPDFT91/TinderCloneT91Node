@@ -28,6 +28,9 @@ This app clones the basic functionality of the official app as listed below:
  width="200">  <img src="https://github.com/HPDFT91/TinderCloneT91Node/blob/master/gitDocs/ss5.png" height="350"
  width="200">  <img src="https://github.com/HPDFT91/TinderCloneT91Node/blob/master/gitDocs/ss6.png" height="350"
  width="200">
+ 
+ See the Working of the App here: https://youtu.be/cCw-o4IU55I
+ 
 ## Get Started
 To get started with any of the availabe interfaces, you’ll need to clone this repo to your local machine.
 Follow the respective steps below.
