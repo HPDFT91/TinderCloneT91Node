@@ -3,7 +3,7 @@
 This is a clone of the popular dating app Tinder, which allows users to find, like or dislike other users and chat if both parties like
 each other.
 
-This clone project features both the Tinder interfaces, i.e. Mobile and Web and is built using React-Native and ReactJS respectively
+This clone project features the Tinder Mobile interface built using React-Native
 with Nodejs as backend.
 
 This app clones the basic functionality of the official app as listed below:
